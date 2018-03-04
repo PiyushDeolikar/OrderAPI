@@ -38,9 +38,14 @@ public class OrderService {
 		Order order2 = new Order("102", "Martha",
 				 new ArrayList<>(Arrays
 						.asList(item3, item4)));
+		
+		Order order3 = new Order("103", "Jake",
+				 new ArrayList<>(Arrays
+						.asList(item3, item4)));
 
 		orders.add(order1);
 		orders.add(order2);
+		orders.add(order3);
 	}
 	
 	public List<Order> retrieveAllOrders() {
@@ -55,6 +60,29 @@ public class OrderService {
 		}
 		return null;
 	}
+	
+	public void DeleteOrder(String orderId) {
+Order order = retrieveOrder(orderId);
+		
+		if (order == null) {
+			return;
+		}
+				orders.remove(order);
+			
+	}
+	
+	public Order UpdateOrder(String orderId,Order newOrder) {
+		Order order = retrieveOrder(orderId);
+		
+		if (order == null) {
+			return null;
+		}
+				orders.remove(order);
+				newOrder.setOrderId(orderId);
+				orders.add(newOrder);
+				return newOrder;
+			
+			}
 	
 	public List<OrderItem> retrieveOrderItems(String orderId) {
 		Order order = retrieveOrder(orderId);
@@ -97,4 +125,18 @@ public class OrderService {
 
 		return orderItem;
 	}
+	
+	private SecureRandom randomNumberOrder = new SecureRandom();
+
+	public Order addOrder(Order order) {
+		if (order == null) {
+			return null;
+		}
+
+		String randomId = new BigInteger(130, randomNumberOrder).toString(32);
+		order.setOrderId(randomId);
+		orders.add(order);
+		return order;
+	}
+	
 }

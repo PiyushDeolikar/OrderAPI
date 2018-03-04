@@ -7,6 +7,11 @@ public class Order {
 	private String orderId;
 	private String customerName;
 	private List<OrderItem> orderItemList;
+	
+	public Order(){
+		
+	}
+	
 	public Order(String orderId, String customerName, List<OrderItem> orderItemList) {
 		super();
 		this.orderId = orderId;
